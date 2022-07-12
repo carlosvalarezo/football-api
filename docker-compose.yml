@@ -12,9 +12,6 @@ services:
       - POSTGRES_PASSWORD=football
     container_name: football_api_db
   football:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: carlosvalarezo/football-api
     ports:
       - "5000:5000"
@@ -27,9 +24,9 @@ services:
       - DB_PASSWORD=football
       - DB_PORT=5432
       - DB_HOST=db
-#    depends_on:
-#      - db
+    depends_on:
+      - db
     restart: on-failure:10
     volumes:
-      - .:/football
+      - $PWD/api:/api
     container_name: football_api
