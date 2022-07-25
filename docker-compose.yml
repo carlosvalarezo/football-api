@@ -12,20 +12,24 @@ services:
       - POSTGRES_USER=football
       - POSTGRES_PASSWORD=football
     container_name: football_db
-  football:
+  football_api:
+    build: .
     image: carlosvalarezo/football-api
     ports:
       - "5000:5000"
     environment:
 #      - FLASK_APP=main
       - FLASK_ENV=development
-#      - PYTHONPATH=/api
+      - PYTHONPATH=/api
       - PORT=5000
       - DB_NAME=football
       - DB_USER=football
       - DB_PASSWORD=football
       - DB_HOST=football_db
       - DB_PORT=5432
+      - API_KEY_FOOTBALL=$API_KEY_FOOTBALL
+      - FOOTBALL_URI=$FOOTBALL_URI
+      - COMPETITIONS_ENDPOINT=$COMPETITIONS_ENDPOINT
     depends_on:
       - football_db
     restart: on-failure:10

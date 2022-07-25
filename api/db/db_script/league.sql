@@ -14,9 +14,13 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 CREATE TABLE public.leagues (
-    league_id integer NOT NULL,
-    league_name text,
-    league_country text,
+    id integer NOT NULL,
+    name text,
+    country text,
+    starting_date date,
+    ending_date date,
+    league_flag text,
+    country_flag text,
     league_details_id integer UNIQUE
 );
 
@@ -31,7 +35,7 @@ CREATE SEQUENCE public.league_id_seq AS integer
 
 ALTER TABLE public.league_id_seq OWNER TO football;
 
-ALTER SEQUENCE public.league_id_seq OWNED BY public.leagues.league_id;
+ALTER SEQUENCE public.league_id_seq OWNED BY public.leagues.id;
 
 CREATE TABLE public.league_details (
     league_details_id integer NOT NULL,
@@ -53,7 +57,7 @@ ALTER TABLE public.league_details_id_seq OWNER TO football;
 
 ALTER SEQUENCE public.league_details_id_seq OWNED BY public.league_details.league_details_id;
 
-ALTER TABLE ONLY public.leagues ALTER COLUMN league_id SET DEFAULT nextval('public.league_id_seq'::regclass);
+ALTER TABLE ONLY public.leagues ALTER COLUMN id SET DEFAULT nextval('public.league_id_seq'::regclass);
 
 ALTER TABLE ONLY public.league_details ALTER COLUMN league_details_id SET DEFAULT nextval('public.league_details_id_seq'::regclass);
 
@@ -62,12 +66,10 @@ SELECT pg_catalog.setval('public.league_id_seq', 1, true);
 SELECT pg_catalog.setval('public.league_details_id_seq', 1, true);
 
 ALTER TABLE ONLY public.leagues
-    ADD CONSTRAINT league_id_pkey PRIMARY KEY (league_id);
+    ADD CONSTRAINT league_id_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.league_details
     ADD CONSTRAINT league_details_pkey PRIMARY KEY (league_details_id);
 
 ALTER TABLE ONLY public.league_details
     ADD CONSTRAINT league_details_fk FOREIGN KEY (league_details_id) REFERENCES public.leagues(league_details_id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-

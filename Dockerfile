@@ -10,9 +10,10 @@ RUN chown -R pythonuser:pythonuser /api \
     && chmod 755 /api
 
 ADD requirements.txt /api
+ADD requirements.dev.txt /api
 
 USER pythonuser
 
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install -r requirements.dev.txt
 
 ENTRYPOINT ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
