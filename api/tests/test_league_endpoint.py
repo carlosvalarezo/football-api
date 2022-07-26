@@ -1,6 +1,6 @@
 import pytest
 import requests
-from adapters.repository_league import APIRepositoryLeague, SqlAlchemyRepositoryLeague, AbstractRepository
+from adapters.repository_league import APIRepositoryLeague, SqlAlchemyRepositoryLeague
 
 
 class MockResponse:
@@ -49,15 +49,3 @@ def test_it_should_receive_response_from_football_api(mock_get_request, mock_end
 
     assert api_result["name"] == "My_Champions_League"
 
-    # code = LeagueCode(the_code)
-    # uri, endpoint = load_endpoint_env_vars()
-    # api_response = APIRepository(uri, endpoint)
-    # response = api_response.get(league=code.code)
-    # print(f"YUPI API = {response}")
-    # league_dt = League('MY_NAME_TODAY', 'MY_COUNTRY', datetime.datetime.now(), datetime.datetime.now(),
-    #                    'MY_COUNTRY_FLAG', 'MY_LEAGUE_FLAG')
-    # session = get_session()
-    # league_repository = SqlAlchemyRepository(session=session)
-    # save_league(league=league_dt, repo=league_repository, session=session)
-    # print(f"YUPI DB = {league_repository.get(name='MY_NAME_TODAY')}")
-    # return json.dumps({'a': 'bb222'})
