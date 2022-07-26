@@ -11,7 +11,7 @@ class APIRepositoryTeam(AbstractRepository):
         self.endpoint = os.getenv('COMPETITIONS_ENDPOINT', '')
         self.api_key = os.getenv('API_KEY_FOOTBALL', '')
 
-    def add(self, league):
+    def add(self, team):
         raise NotImplementedError
 
     def get(self, league):
@@ -19,17 +19,3 @@ class APIRepositoryTeam(AbstractRepository):
         headers = {'X-Auth-Token': self.api_key}
         return requests.get(uri, headers=headers).json()
 
-
-# class SqlAlchemyRepositoryLeague(AbstractRepository):
-#     def __init__(self, session):
-#         self.session = session
-#
-#     def add(self, league):
-#         self.session.add(league)
-#
-#     def get(self, name):
-#         return self.session.query(League).filter(League.name == name).all()
-#
-#     def list(self):
-#         return self.session.query(League).all()
-#         # return self.session.query(League).count()

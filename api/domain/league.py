@@ -18,7 +18,9 @@ class League:
                  league_flag: str):
         self.name = name
         self.country = country
-        self.season = season
+        self.starting_date = season.starting_date
+        self.ending_date = season.ending_date
+        self.current_match = season.current_match
         self.code = code
         self.country_flag = country_flag
         self.league_flag = league_flag
@@ -31,3 +33,6 @@ class League:
 
     def set_teams(self, team: Team):
         self._teams.add(team)
+
+    def get_teams(self):
+        return self._teams

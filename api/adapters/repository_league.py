@@ -10,7 +10,7 @@ class APIRepositoryLeague(AbstractRepository):
         self.endpoint = os.getenv('COMPETITIONS_ENDPOINT', '')
         self.api_key = os.getenv('API_KEY_FOOTBALL', '')
 
-    def add(self, league):
+    def add(self, domain_object):
         raise NotImplementedError
 
     def get(self, league):
@@ -31,4 +31,3 @@ class SqlAlchemyRepositoryLeague(AbstractRepository):
 
     def list(self):
         return self.session.query(League).all()
-        # return self.session.query(League).count()

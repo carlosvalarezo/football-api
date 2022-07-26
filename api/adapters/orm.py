@@ -1,11 +1,11 @@
 from sqlalchemy import Table, MetaData, Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import mapper, relationship
+from sqlalchemy.orm import mapper, relationship, composite
 
 from domain.league import League
 
 metadata = MetaData()
 
-league_data = Table(
+league_table = Table(
     "leagues",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
@@ -13,11 +13,12 @@ league_data = Table(
     Column("country", String(100), nullable=False),
     Column("starting_date", Date),
     Column("ending_date", Date),
+    Column("current_match", Integer),
+    Column("code", Integer),
     Column("country_flag", String(255)),
     Column("league_flag", String(255)),
 
 )
-
 
 # batches = Table(
 #     "batches",
@@ -39,7 +40,8 @@ league_data = Table(
 
 
 def start_mappers():
-    mapper(League, league_data)
+    # mapper(League, league_table)
+    mapper(League, league_table)
     # mapper(
     #     League,
     #     league_data,
