@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from domain.team import Team
 from domain.season import Season
 
 
@@ -24,15 +23,15 @@ class League:
         self.code = code
         self.country_flag = country_flag
         self.league_flag = league_flag
-        self._teams = set()
+        self.teams = set()
 
     def __eq__(self, other):
         if not isinstance(other, League):
             return False
         return other.code == self.code
 
-    def set_teams(self, team: Team):
-        self._teams.add(team)
+    def set_teams(self, teams):
+        self.teams = teams
 
     def get_teams(self):
-        return self._teams
+        return self.teams

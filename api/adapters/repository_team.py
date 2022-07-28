@@ -19,3 +19,18 @@ class APIRepositoryTeam(AbstractRepository):
         headers = {'X-Auth-Token': self.api_key}
         return requests.get(uri, headers=headers).json()
 
+
+class SqlAlchemyRepositoryTeam(AbstractRepository):
+    def __init__(self, session):
+        self.session = session
+
+    def add(self, team):
+        self.session.add(team)
+        self.session.flush()
+        return team.id
+
+    def get(self, name):
+        return self.session.query(Team).filter(Team.name == name).all()
+
+    def list(self):
+        return self.session.query(Team).all()

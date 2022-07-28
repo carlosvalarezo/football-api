@@ -25,6 +25,8 @@ class SqlAlchemyRepositoryLeague(AbstractRepository):
 
     def add(self, league):
         self.session.add(league)
+        self.session.flush()
+        return league.id
 
     def get(self, name):
         return self.session.query(League).filter(League.name == name).all()

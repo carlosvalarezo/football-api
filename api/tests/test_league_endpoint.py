@@ -48,4 +48,3 @@ def test_it_should_receive_response_from_football_api(mock_get_request, mock_end
     api_result = api_response.get(league="MY_CODE")
 
     assert api_result["name"] == "My_Champions_League"
-
