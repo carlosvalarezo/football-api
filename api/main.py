@@ -1,14 +1,16 @@
 import os
 
 from flask import Flask
-from routes.health import health_endpoint
-from routes.leagues import league_endpoint
+from routes.health import health
+from routes.setup import setup
+from routes.api import api
 from adapters.orm import start_mappers
 
 app = Flask(__name__)
 start_mappers()
-app.register_blueprint(health_endpoint, url_prefix='/api')
-app.register_blueprint(league_endpoint, url_prefix='/setup')
+app.register_blueprint(health, url_prefix='/health')
+app.register_blueprint(setup, url_prefix='/setup')
+app.register_blueprint(api, url_prefix='/api')
 
 if __name__ == '__main__':
     port = int(os.getenv('APP_PORT', 5000))

@@ -27,12 +27,12 @@ leagues_table = Table(
     "leagues",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("name", String(100), nullable=True),
+    Column("name", String(100), nullable=True, unique=True),
     Column("country", String(100), nullable=True),
     Column("starting_date", Date, nullable=True),
     Column("ending_date", Date, nullable=True),
     Column("current_match", Integer, nullable=True),
-    Column("code", String(10), nullable=True),
+    Column("code", String(10), nullable=True, unique=True),
     Column("country_flag", String(255), nullable=True),
     Column("league_flag", String(255), nullable=True),
 )
@@ -41,18 +41,18 @@ coaches_table = Table(
     "coaches",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("name", String(255), nullable=True),
+    Column("name", String(255), nullable=True, unique=True),
     Column("nationality", String(255), nullable=True),
-    Column("code", String(10), nullable=True)
+    Column("code", String(10), nullable=True, unique=True)
 )
 
 teams_table = Table(
     "teams",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("name", String(100), nullable=True),
+    Column("name", String(100), nullable=True, unique=True),
     Column("venue", String(100), nullable=True),
-    Column("code", String(10), nullable=True),
+    Column("code", String(10), nullable=True, unique=True),
     Column("coach", ForeignKey("coaches.id"), nullable=True),
     Column("team_flag", String(255), nullable=True),
 )
@@ -68,11 +68,11 @@ players_table = Table(
     "players",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("name", String(255), nullable=True),
+    Column("name", String(255), nullable=True, unique=True),
     Column("date_of_birth", Date, nullable=True),
     Column("nationality", String(100), nullable=True),
     Column("position", String(100), nullable=True),
-    Column("code", String(10), nullable=True),
+    Column("code", String(10), nullable=True, unique=True),
     Column("team", ForeignKey("teams.id"), nullable=False)
 )
 

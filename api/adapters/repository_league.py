@@ -1,7 +1,10 @@
+import http
 import os
 from adapters.repository import AbstractRepository
 from domain.league import League
+from exceptions.exceptions import NameAlreadyRegisteredError, NameNotRegisteredError
 import requests
+from sqlalchemy.exc import IntegrityError
 
 
 class APIRepositoryLeague(AbstractRepository):
@@ -24,12 +27,18 @@ class SqlAlchemyRepositoryLeague(AbstractRepository):
         self.session = session
 
     def add(self, league):
-        self.session.add(league)
-        self.session.flush()
-        return league.id
+        try:
+            self.session.add(league)
+            self.session.flush()
+            return league.id
+        except IntegrityError as e:
+            raise NameAlreadyRegisteredError(e.orig.diag.message_detail, http.HTTPStatus.BAD_REQUEST)
 
-    def get(self, name):
-        return self.session.query(League).filter(League.name == name).all()
+    def get(self, league_code=None):
+        league = self.session.query(League).filter(League.code == league_code.code)
+        if league.count() == 0:
+            raise NameNotRegisteredError('Name not registered', http.HTTPStatus.BAD_REQUEST)
+        return league
 
     def list(self):
         return self.session.query(League).all()

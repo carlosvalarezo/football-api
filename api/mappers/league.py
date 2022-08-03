@@ -1,5 +1,6 @@
 from domain.season import Season
 from domain.league import League
+from json import JSONEncoder
 
 
 class LeagueMapper:

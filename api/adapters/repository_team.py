@@ -29,8 +29,8 @@ class SqlAlchemyRepositoryTeam(AbstractRepository):
         self.session.flush()
         return team.id
 
-    def get(self, name):
-        return self.session.query(Team).filter(Team.name == name).all()
+    def get(self, team_code):
+        return self.session.query(Team).filter(Team.code == team_code).one()
 
     def list(self):
         return self.session.query(Team).all()

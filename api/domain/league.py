@@ -1,3 +1,5 @@
+import json
+
 from dataclasses import dataclass
 from domain.season import Season
 
@@ -29,6 +31,12 @@ class League:
         if not isinstance(other, League):
             return False
         return other.code == self.code
+
+    def __hash__(self):
+        return hash(self.code)
+
+    def __repr__(self):
+        return f'<League {self.code}>'
 
     def set_teams(self, teams):
         self.teams = teams

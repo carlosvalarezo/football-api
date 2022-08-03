@@ -15,12 +15,12 @@ SET default_with_oids = false;
 -- public.leagues
 CREATE TABLE public.leagues (
     id integer NOT NULL,
-    name text,
+    name text unique,
     country text,
     starting_date date,
     ending_date date,
     current_match integer,
-    code text,
+    code text unique,
     league_flag text,
     country_flag text
 );
@@ -48,10 +48,10 @@ ALTER TABLE ONLY public.leagues
 -- public.teams
 CREATE TABLE public.teams (
     id integer NOT NULL,
-    name text,
+    name text unique,
     team_flag text,
     venue text,
-    code text,
+    code text unique,
     coach integer
 );
 
@@ -78,9 +78,9 @@ ALTER TABLE ONLY public.teams
 -- public.coaches
 CREATE TABLE public.coaches (
     id integer NOT NULL,
-    name text,
+    name text unique,
     nationality text,
-    code text
+    code text unique
 );
 
 ALTER TABLE public.coaches OWNER TO football;
@@ -106,12 +106,12 @@ ALTER TABLE ONLY public.coaches
 -- public.players
 CREATE TABLE public.players (
     id integer NOT NULL,
-    name text,
+    name text unique,
     nationality text,
     date_of_birth date,
     position text,
     team integer,
-    code text
+    code text unique
 );
 
 ALTER TABLE public.players OWNER TO football;

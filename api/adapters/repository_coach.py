@@ -11,8 +11,8 @@ class SqlAlchemyRepositoryCoach(AbstractRepository):
         self.session.flush()
         return coach.id
 
-    def get(self, name):
-        return self.session.query(Coach).filter(Coach.name == name).all()
+    def get(self):
+        return self.session.query(Coach).all()
 
     def list(self):
         return self.session.query(Coach).all()
