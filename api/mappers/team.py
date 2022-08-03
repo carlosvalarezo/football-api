@@ -37,7 +37,6 @@ class TeamMapper:
         self.code = code
 
     def _map_coach(self, coach):
-        print(f"[COACH] NO MAP YET= {coach}")
         coach_mapper = CoachMapper(coach)
         return coach_mapper.map_coach()
 

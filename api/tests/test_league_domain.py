@@ -17,7 +17,8 @@ def test_adds_teams_without_coach_to_league():
     for team in teams:
         league_expected.set_teams(team)
 
-    assert len(league_expected.get_teams()) == 2
+    assert teams[0].name == 'a_name_A'
+    assert teams[1].name == 'a_name_B'
 
 
 def test_adds_teams_with_coach_to_league():
@@ -36,5 +37,6 @@ def test_adds_teams_with_coach_to_league():
         team.set_coach(coach)
         league_expected.set_teams(team)
 
-    assert len(league_expected.get_teams()) == 2
+    assert teams[0].name == 'a_name_A'
+    assert teams[1].name == 'a_name_B'
 

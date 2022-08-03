@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build . -t carlosvalarezo/weather-api-tests -f Dockerfile._test
-docker run --rm --name weather-api-tests -v $PWD/api:/api carlosvalarezo/weather-api-tests
+docker build . -t carlosvalarezo/football_api_tests -f Dockerfile._dev
+docker run -v "$PWD"/api/:/api carlosvalarezo/football_api_tests python -m pytest /api/tests

@@ -17,12 +17,6 @@ class SqlAlchemyRepositoryPlayer(AbstractRepository):
     def get(self, player_search):
         if not player_search.team_code:
             return self.session.query(Player) \
-                .filter(League.code == player_search.code) \
-                .filter(Player.team == Team.id) \
-                .filter(Team.id == LeagueTeam.team) \
-                .filter(League.id == LeagueTeam.league)
-        if player_search.team_code:
-            return self.session.query(Player, Team) \
                 .with_entities(Team.name.label('team_name'),
                                Team.code.label('team_code'),
                                Player.name.label('player_name'),
@@ -33,8 +27,21 @@ class SqlAlchemyRepositoryPlayer(AbstractRepository):
                 .filter(League.code == player_search.league_code.code) \
                 .filter(Player.team == Team.id) \
                 .filter(Team.id == LeagueTeam.team) \
-                .filter(Team.code == player_search.team_code) \
-                .filter(League.id == LeagueTeam.league) \
+                .filter(League.id == LeagueTeam.league)
+
+        return self.session.query(Player, Team) \
+            .with_entities(Team.name.label('team_name'),
+                           Team.code.label('team_code'),
+                           Player.name.label('player_name'),
+                           Player.date_of_birth.label('date_of_birth'),
+                           Player.nationality.label('nationality'),
+                           Player.position.label('position'),
+                           Player.code.label('code')) \
+            .filter(League.code == player_search.league_code.code) \
+            .filter(Player.team == Team.id) \
+            .filter(Team.id == LeagueTeam.team) \
+            .filter(Team.code == player_search.team_code) \
+            .filter(League.id == LeagueTeam.league)
 
     def list(self):
         return self.session.query(Player).all()
