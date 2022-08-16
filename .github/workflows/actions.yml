@@ -18,5 +18,7 @@ jobs:
   execute-tests:
     runs-on: ubuntu-20.04
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - run: docker build . -t carlosvalarezo/football_api_tests -f Dockerfile._dev
       - run: docker run -v "$PWD"/api/:/api carlosvalarezo/football_api_tests python -m pytest /api/tests
