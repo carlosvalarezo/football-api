@@ -15,7 +15,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+    # These manual commands of installing heroku & git CLIs should be replaced with provisioning tools like chef/ansible
       - name: Install heroku cli
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - name: Checking heroku cli version
-        run: heroku --version
+      - name: Install git cli
+        run: apt install git-all
+      - name: Checking CLIs version
+        run: |
+          heroku --version
+          git --version
+      - name: Create heroku app
+        run: heroku push
