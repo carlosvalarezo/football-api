@@ -19,7 +19,7 @@ jobs:
       - name: Install heroku cli
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - name: Install git cli
-        run: apt install git-all
+        run: sudo apt install git-all
       - name: Checking CLIs version
         run: |
           heroku --version
