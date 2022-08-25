@@ -11,15 +11,18 @@ jobs:
       - name: Execute the tests
         run: docker run -v "$PWD"/api/:/api carlosvalarezo/football_api_tests python -m pytest /api/tests
   deploy-to-heroku:
+    needs: execute-tests
     runs-on: ubuntu-20.04
+    container:
+      image: heroku/heroku:20
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
     # These manual commands of installing heroku & git CLIs should be replaced with provisioning tools like chef/ansible
-      - name: Install heroku cli
-        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - name: Install git cli
-        run: sudo apt install git-all
+#      - name: Install heroku cli
+#        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+#      - name: Install git cli
+#        run: sudo apt install git-all
       - name: Checking CLIs version
         run: |
           heroku --version
