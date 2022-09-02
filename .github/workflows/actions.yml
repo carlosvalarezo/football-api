@@ -28,4 +28,4 @@ jobs:
           heroku --version
           git --version
       - name: Create heroku app
-        run: heroku push
+        run: heroku create
