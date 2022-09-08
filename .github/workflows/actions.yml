@@ -13,6 +13,7 @@ jobs:
   deploy-to-heroku:
     needs: execute-tests
     runs-on: ubuntu-20.04
+    environment: development
     container:
       image: heroku/heroku:20
     steps:
@@ -27,10 +28,18 @@ jobs:
         run: |
           heroku --version
           git --version
-      - name: Login into heroku
+      - name: Create netrc file
         env:
           HEROKU_USERNAME: ${{ secrets.HEROKU_USERNAME }}
-          HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
-        run: heroku login -i
-      - name: Create heroku app
-        run: heroku create
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          cat << EOF > ~/.netrc
+          machine api.heroku.com
+            login "$HEROKU_USERNAME"
+            password "$HEROKU_API_KEY"
+          EOF
+          heroku create
+#      - name: Login to heroku
+#        run: heroku login
+#      - name: Create heroku app
+#        run: heroku create
