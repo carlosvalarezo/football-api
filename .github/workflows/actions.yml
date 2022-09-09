@@ -19,11 +19,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-    # These manual commands of installing heroku & git CLIs should be replaced with provisioning tools like chef/ansible
+    # These manual commands of installing heroku CLI should be replaced with provisioning tools like chef/ansible
       - name: Install heroku cli
         run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-#      - name: Install git cli
-#        run: sudo apt install git-all
       - name: Checking CLIs version
         run: |
           heroku --version
@@ -44,11 +42,6 @@ jobs:
             login "$HEROKU_USERNAME"
             password "$HEROKU_API_KEY"
           EOF
-          heroku create -a cv-football-api
           heroku git:remote -a cv-football-api
           cat .git/config
           git push heroku master
-#      - name: Login to heroku
-#        run: heroku login
-#      - name: Create heroku app
-#        run: heroku create

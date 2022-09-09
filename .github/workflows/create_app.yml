@@ -1,0 +1,27 @@
+name: Football API actions
+on: [push]
+jobs:
+  create-heroku-app:
+    runs-on: ubuntu-20.04
+    environment: development
+    container:
+      image: heroku/heroku:20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+    # These manual commands of installing heroku CLI should be replaced with provisioning tools like chef/ansible
+      - name: Install heroku cli
+        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      - name: Checking CLIs version
+        run: |
+          heroku --version
+          git --version
+      - name: Create netrc file
+        env:
+          HEROKU_USERNAME: ${{ secrets.HEROKU_USERNAME }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          GITHUB_EMAIL: ${{ github.event.pusher.email }}
+        run: |
+          ls .github/workflows/scripts/
+          chmod +x .github/workflows/scripts/create_app.sh
+          sh .github/workflows/scripts/create_app.sh
