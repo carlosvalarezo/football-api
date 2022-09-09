@@ -32,19 +32,21 @@ jobs:
         env:
           HEROKU_USERNAME: ${{ secrets.HEROKU_USERNAME }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          GITHUB_EMAIL: ${{ github.event.pusher.email }}
         run: |
           echo "${GITHUB_ACTOR}"
-          git config --global user.email carlos.valarezo@gmail.com
-          git config --global user.name carlos.valarezo
+          echo "${GH_USERNAME}"
+          ls -all
+          git config --global user.email "${GITHUB_EMAIL}"
+          git config --global user.name "${GITHUB_ACTOR}"
           cat << EOF > ~/.netrc
-          machine api.heroku.com
+          machine cv-football-api
             login "$HEROKU_USERNAME"
             password "$HEROKU_API_KEY"
           EOF
-          ls -all
-          chown hR carlos.valarezo:carlos.valarezo
-          ls -all
-          heroku apps:create football-api-two
+          heroku create -a cv-football-api
+          heroku git:remote -a cv-football-api
+          cat .git/config
           git push heroku master
 #      - name: Login to heroku
 #        run: heroku login
