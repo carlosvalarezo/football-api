@@ -1,4 +1,4 @@
-name: Football API actions
+name: Create heroku app
 on: [push]
 jobs:
   create-heroku-app:
@@ -22,6 +22,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           GITHUB_EMAIL: ${{ github.event.pusher.email }}
         run: |
-          ls .github/workflows/scripts/
           chmod +x .github/workflows/scripts/create_app.sh
+          cat .github/workflows/scripts/create_app.sh
+          cat .github/workflows/scripts/create_app.sh
           sh .github/workflows/scripts/create_app.sh
